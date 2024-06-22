@@ -1,0 +1,45 @@
+#! /bin/sh
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+
+xrandr --output eDP-1 --primary --mode 1920x1080 --rotate normal --output HDMI-1 --mode 3440x1440 --rotate normal --left-of eDP-1
+
+bspc monitor eDP-1 -d 8 9 10
+bspc monitor HDMI-1 -d 1 2 3 4 5 6 7
+
+#bspc monitor -d I II III IV V VI VII VIII IX X
+#bspc monitor -d  一 二 三 四 五 六 七 八 九 十 
+
+bspc config border_width         0
+bspc config window_gap           20
+bspc config top_padding          60
+bspc config bottom_padding       60
+
+bspc config split_ratio          0.50
+bspc config borderless_monocle   false
+bspc config gapless_monocle      false
+bspc config automatic_scheme     longest_side
+bspc config ignore_ewmh_focus    true
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+bspc rule -a '*:*:Picture-in-Picture' follow=false state=floating sticky=on
+
+
+
+picom --backend glx&
+conky &
+setxkbmap eu &
+~/.config/polybar/launch.sh &
+nm-applet &
+udiskie &
+nitrogen --restore &
+dunst &
+#clipmenud &
+greenclip daemon &
+ibus-daemon -dr &
+otd-daemon &
+xsetroot -cursor_name left_ptr &

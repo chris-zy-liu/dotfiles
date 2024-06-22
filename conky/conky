@@ -1,0 +1,68 @@
+
+7
+
+How do I put a clock on the desktop background on Ubuntu 19.04 GNOME
+
+Is there maybe an extension that I am not finding?
+
+I have google all I think is relevant.
+clock
+widgets
+Share
+Improve this question
+Follow
+edited Dec 12 '19 at 14:03
+damadam
+2,71533 gold badges1414 silver badges3333 bronze badges
+asked Dec 12 '19 at 13:06
+Eirik
+15711 gold badge22 silver badges1010 bronze badges
+
+    Can you please try the edited code? It should fix the error you saw with own_window_type = 'override',. – 
+    DK Bose
+    Dec 14 '19 at 11:03
+
+Add a comment
+1 Answer
+6
+
+Install conky by running sudo apt install conky-all
+
+Create the folder conky in ~/.config. Then, in ~/.config/conky, create an empty plain text file called conky.conf.
+
+Open a plain text editor, paste the following content into conky.conf and save the file:
+
+conky.config = {
+
+    background = false,
+    update_interval = 1,
+    double_buffer = true,
+    no_buffers = true,
+    text_buffer_size = 2048,
+    own_window = true,
+    own_window_class = 'conky',
+    own_window_argb_visual = true,
+    own_window_argb_value = 80,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    own_window_colour = '#252525',
+    own_window_type = 'desktop',
+    background = false,
+    minimum_width = 250,
+    gap_x = 100,
+    gap_y = 200,
+    draw_shades = false,
+    draw_outline = false,
+    draw_borders = false,
+    override_utf8_locale = true,
+    use_xft = true,
+    font = 'Noto:size=8',
+    xftalpha = 0.5,
+    uppercase = false
+};
+
+conky.text = [[
+${voffset 5}${offset 15}${font Noto:size=36}${color white}${time %e}
+${goto 25}${font Noto:size=18}${color white}${voffset -30}${time %b}${color white}${offset 10}${time %Y}
+${font Noto:size=12}${color white}${voffset 5}${goto 20}${time %A}${goto 153}${color white}${time %H}:${time %M}
+]];
+-- https://store.kde.org/p/1197154/
